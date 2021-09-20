@@ -1,7 +1,7 @@
 # robodance
 Hello Everyone!
 Im Bryant Mauricio Varela Escamilla from Nuevo Leon Mexico,
-This is my results on the QA Challange, I focus both on manual QA and on automation, right now im learning again JAVA from scratch
+This is my results on the QA Challenge, I focus both on manual QA and on automation, right now im learning again JAVA from scratch
 because I really want to learn the most efficient tools available right now and understand what i did not catch on my school days.
 
 I found several bugs that break the whole experience, they are located on each Test Case I created on "Notes and Test Cases" and on the doc file i added
