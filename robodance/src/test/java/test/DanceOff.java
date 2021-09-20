@@ -23,7 +23,7 @@ public class DanceOff {
 	
   @Test
   public void AllCombinationsAvailable() throws InterruptedException {
-	  	System.setProperty("webdriver.chrome.driver", "C:\\Users\\bryan\\eclipse\\chromedriver.exe");
+	  	System.setProperty("webdriver.chrome.driver", "chromedriver.exe");
 	  	WebDriver driver = new ChromeDriver();
 		driver.manage().window().maximize();
 		driver.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);
@@ -76,7 +76,7 @@ public class DanceOff {
   
   @Test
   public void DanceButtonTest() throws InterruptedException {
-	  System.setProperty("webdriver.chrome.driver", "C:\\Users\\bryan\\eclipse\\chromedriver.exe");
+	  System.setProperty("webdriver.chrome.driver", "chromedriver.exe");
 	  	WebDriver driver = new ChromeDriver();
 		driver.manage().window().maximize();
 		driver.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);

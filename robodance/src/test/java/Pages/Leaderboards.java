@@ -2,6 +2,8 @@ package Pages;
 
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.ArrayList;
+import java.util.Collections;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -30,10 +32,10 @@ public class Leaderboards {
 	By winnersNames = By.cssSelector("div[data-test-id='winnerRobot'] p");
 
 	// Locator for losers
-	By losers = By.cssSelector("div[data-test-id='winnerRobot']");
+	By losers = By.cssSelector("div[data-test-id='loserRobot']");
 
 	// Locator for losers names
-	By losersNames = By.cssSelector("div[data-test-id='winnerRobot'] p");
+	By losersNames = By.cssSelector("div[data-test-id='loserRobot'] p");
 
 	// Method to return last winner from the leaderboard
 	public String returnLastFinalWinnerName() {
@@ -44,8 +46,8 @@ public class Leaderboards {
 	// Method to return list of webelements for final winners
 	@SuppressWarnings("null")
 	public List<WebElement> returnListWithLastMatchFinalWinners() {
-		List<WebElement> fws = null;
-		for (int i = 0; i <= 5; i++)
+		List<WebElement> fws = new ArrayList<WebElement>();
+		for (int i = 0; i < 5; i++)
 			fws.add(driver.findElements(finalWinners).get(i));
 		return fws;
 	}
@@ -53,18 +55,24 @@ public class Leaderboards {
 	// Method to return list of webelements for final losers
 	@SuppressWarnings("null")
 	public List<WebElement> returnListWithLastMatchLosers() {
-		List<WebElement> loserList = null;
-		for (int i = 0; i <= 5; i++)
+		List<WebElement> loserList = new ArrayList<WebElement>();
+		for (int i = 0; i < 5; i++)
 			loserList.add(driver.findElements(losers).get(i));
 		return loserList;
 	}
 
 	@SuppressWarnings("null")
-	public List<String> returnListWithLastMatchLosersNames() {
-		List<String> loserList = null;
-		for (int i = 0; i <= 5; i++)
-			loserList.add(driver.findElements(losersNames).get(i).getText());
+	public List<String> returnListWithLastMatchLosersNames(int results) {
+		List<String> loserList = driver.findElements(losersNames).stream().map(s -> s.getText()).limit(results)
+				.collect(Collectors.toList());
 		return loserList;
+	}
+
+	@SuppressWarnings("null")
+	public List<String> returnListWithLastMatchWinersNames(int results) {
+		List<String> winnersList = driver.findElements(winnersNames).stream().map(s -> s.getText()).limit(results)
+				.collect(Collectors.toList());
+		return winnersList;
 	}
 
 	// Brings the left side of the robots (winner side) so we can compare if its the
@@ -77,6 +85,28 @@ public class Leaderboards {
 				.collect(Collectors.toList());
 
 		boolean bothEquals = winnersList.equals(finalWinnersList);
+
+		return bothEquals;
+
+	}
+
+	@SuppressWarnings("null")
+	public boolean compareLastMatchWinnerNames(List<String> ws) {
+		List<String> winnersList = driver.findElements(winnersNames).stream().map(s -> s.getText()).limit(ws.size())
+				.collect(Collectors.toList());
+		Collections.reverse(ws);
+		boolean bothEquals = winnersList.equals(ws);
+
+		return bothEquals;
+
+	}
+
+	@SuppressWarnings("null")
+	public boolean compareLastMatchLoserNames(List<String> ws) {
+		List<String> losersList = driver.findElements(losersNames).stream().map(s -> s.getText()).limit(ws.size())
+				.collect(Collectors.toList());
+		Collections.reverse(ws);
+		boolean bothEquals = losersList.equals(ws);
 
 		return bothEquals;
 

@@ -1,5 +1,7 @@
 package test;
 
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -9,13 +11,14 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
+import Global.dataDriven;
 import Pages.Competition;
 import Pages.HomePage;
 
 public class Message {
 	@Test
 	public void WelcomeMessage() throws InterruptedException {
-		System.setProperty("webdriver.chrome.driver", "C:\\Users\\bryan\\eclipse\\chromedriver.exe");
+		System.setProperty("webdriver.chrome.driver", "chromedriver.exe");
 		WebDriver driver = new ChromeDriver();
 		driver.manage().window().maximize();
 		driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
@@ -38,7 +41,7 @@ public class Message {
 
 	@Test
 	public void WinnerOrLoserMessage() throws InterruptedException {
-		System.setProperty("webdriver.chrome.driver", "C:\\Users\\bryan\\eclipse\\chromedriver.exe");
+		System.setProperty("webdriver.chrome.driver", "chromedriver.exe");
 		WebDriver driver = new ChromeDriver();
 		driver.manage().window().maximize();
 		driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
@@ -65,7 +68,7 @@ public class Message {
 
 	@Test
 	public void SelectedForBattleMessage() throws InterruptedException {
-		System.setProperty("webdriver.chrome.driver", "C:\\Users\\bryan\\eclipse\\chromedriver.exe");
+		System.setProperty("webdriver.chrome.driver", "chromedriver.exe");
 		WebDriver driver = new ChromeDriver();
 		driver.manage().window().maximize();
 		driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
@@ -90,13 +93,11 @@ public class Message {
 
 	@SuppressWarnings("null")
 	@Test
-	public void selectedRobotMessage() throws InterruptedException {
+	public void selectedRobotMessage() throws InterruptedException, IOException {
 		// this could be a file that contains this rows of strings
-
-		String[] selectRobotMessageText = { "Now select opponents for your first battle",
-				"Now select opponents for your second battle", "Now select opponents for your third battle",
-				"Now select opponents for your fourth battle", "Now select opponents for your fifth battle" };
-		System.setProperty("webdriver.chrome.driver", "C:\\Users\\bryan\\eclipse\\chromedriver.exe");
+		dataDriven file = new dataDriven();
+		ArrayList<String> selectRobotMessageTextFromFile = file.getData("Message");
+		System.setProperty("webdriver.chrome.driver", "chromedriver.exe");
 		WebDriver driver = new ChromeDriver();
 		driver.manage().window().maximize();
 		driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
@@ -114,19 +115,13 @@ public class Message {
 		List<WebElement> RobotTeam1 = match.listOfRobotsByTeam(1);
 		List<WebElement> RobotTeam2 = match.listOfRobotsByTeam(2);
 		for (int i = 0; i < RobotTeam1.size(); i++) {
-
-			a.assertTrue(match.checkSelectRobotsMessage(selectRobotMessageText[i]),
-					"message is wrong on iteration: " + i);
+			a.assertTrue(match.checkSelectRobotsMessage(selectRobotMessageTextFromFile.get(i)),
+					"FILE TEST message is wrong on iteration: " + i);
 
 			match.selectRobotById(RobotTeam1, i);
 			match.selectRobotById(RobotTeam2, i);
 			match.startDance();
 		}
-		// String battleResult2 = match.battleStatusByRobotId(RobotTeam1, 0);
-		// a.assertTrue(!battleResult1.equals(battleResult2),"Robot1 is a: " +
-		// battleResult1 +
-		// " before click and then is " + battleResult2 +
-		// "after the click which is impossible");
 		driver.quit();
 		a.assertAll();
 	}

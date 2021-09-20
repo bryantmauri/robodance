@@ -13,7 +13,7 @@ import Pages.HomePage;
 public class TeamName {
 	@Test
 	public void testTeamNames() {
-		System.setProperty("webdriver.chrome.driver", "C:\\Users\\bryan\\eclipse\\chromedriver.exe");
+		System.setProperty("webdriver.chrome.driver", "chromedriver.exe");
 		WebDriver driver = new ChromeDriver();
 		driver.manage().window().maximize();
 		driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
@@ -32,7 +32,7 @@ public class TeamName {
 
 	@Test
 	public void testCreateButton() {
-		System.setProperty("webdriver.chrome.driver", "C:\\Users\\bryan\\eclipse\\chromedriver.exe");
+		System.setProperty("webdriver.chrome.driver", "chromedriver.exe");
 		WebDriver driver = new ChromeDriver();
 		driver.manage().window().maximize();
 		driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
